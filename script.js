@@ -15,6 +15,10 @@ const canvas = document.getElementById("confetti-canvas");
 const ctx = canvas.getContext("2d");
 const confetti = [];
 let confettiRunning = true;
+let synthContext = null;
+let synthIntervals = [];
+let synthTimeouts = [];
+let synthPlaying = false;
 
 function setCanvasSize() {
   canvas.width = window.innerWidth;
@@ -148,17 +152,106 @@ function updateCountdown() {
 async function toggleMusic() {
   try {
     if (audio.paused) {
+      stopSynthTune();
       await audio.play();
       musicBtn.textContent = "Pause Music";
       musicBtn.setAttribute("aria-pressed", "true");
     } else {
       audio.pause();
+      stopSynthTune();
       musicBtn.textContent = "Play Music";
       musicBtn.setAttribute("aria-pressed", "false");
     }
   } catch (error) {
-    musicBtn.textContent = "Music Unavailable";
+    if (!synthPlaying) {
+      startSynthTune();
+      musicBtn.textContent = "Pause Music";
+      musicBtn.setAttribute("aria-pressed", "true");
+    } else {
+      stopSynthTune();
+      musicBtn.textContent = "Play Music";
+      musicBtn.setAttribute("aria-pressed", "false");
+    }
   }
+}
+
+function playSynthNote(frequency, durationMs) {
+  if (!synthContext) {
+    return;
+  }
+
+  const osc = synthContext.createOscillator();
+  const gain = synthContext.createGain();
+  osc.type = "triangle";
+  osc.frequency.value = frequency;
+
+  gain.gain.setValueAtTime(0.0001, synthContext.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.11, synthContext.currentTime + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, synthContext.currentTime + durationMs / 1000);
+
+  osc.connect(gain);
+  gain.connect(synthContext.destination);
+  osc.start();
+  osc.stop(synthContext.currentTime + durationMs / 1000 + 0.03);
+}
+
+function clearSynthTimers() {
+  synthIntervals.forEach((id) => clearInterval(id));
+  synthTimeouts.forEach((id) => clearTimeout(id));
+  synthIntervals = [];
+  synthTimeouts = [];
+}
+
+function stopSynthTune() {
+  synthPlaying = false;
+  clearSynthTimers();
+  if (synthContext && synthContext.state !== "closed") {
+    synthContext.close();
+  }
+  synthContext = null;
+}
+
+function scheduleHappyBirthdayLoop() {
+  const notes = [
+    { f: 392, d: 320, p: 0 }, { f: 392, d: 220, p: 360 }, { f: 440, d: 520, p: 620 },
+    { f: 392, d: 520, p: 1180 }, { f: 523, d: 520, p: 1760 }, { f: 494, d: 840, p: 2340 },
+    { f: 392, d: 320, p: 3340 }, { f: 392, d: 220, p: 3700 }, { f: 440, d: 520, p: 3960 },
+    { f: 392, d: 520, p: 4520 }, { f: 587, d: 520, p: 5100 }, { f: 523, d: 840, p: 5680 },
+    { f: 392, d: 320, p: 6680 }, { f: 392, d: 220, p: 7040 }, { f: 784, d: 520, p: 7300 },
+    { f: 659, d: 520, p: 7860 }, { f: 523, d: 520, p: 8440 }, { f: 494, d: 520, p: 9020 },
+    { f: 440, d: 840, p: 9600 }
+  ];
+  const loopLength = 10600;
+
+  const playSequence = () => {
+    notes.forEach((note) => {
+      const t = setTimeout(() => {
+        if (synthPlaying) {
+          playSynthNote(note.f, note.d);
+        }
+      }, note.p);
+      synthTimeouts.push(t);
+    });
+  };
+
+  playSequence();
+  const loopId = setInterval(playSequence, loopLength);
+  synthIntervals.push(loopId);
+}
+
+function startSynthTune() {
+  if (synthPlaying) {
+    return;
+  }
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextClass) {
+    musicBtn.textContent = "Music Unsupported";
+    return;
+  }
+
+  synthContext = new AudioContextClass();
+  synthPlaying = true;
+  scheduleHappyBirthdayLoop();
 }
 
 function setWish() {
