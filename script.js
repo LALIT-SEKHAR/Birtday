@@ -25,17 +25,20 @@ function randomRange(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-function createConfettiBurst(count = 140) {
+function createConfettiBurst(count = 140, centerX = null, centerY = null) {
+  const burstX = centerX ?? randomRange(canvas.width * 0.2, canvas.width * 0.8);
+  const burstY = centerY ?? randomRange(canvas.height * 0.08, canvas.height * 0.28);
+
   for (let i = 0; i < count; i += 1) {
     confetti.push({
-      x: randomRange(0, canvas.width),
-      y: randomRange(-100, canvas.height * 0.25),
+      x: burstX + randomRange(-70, 70),
+      y: burstY + randomRange(-30, 30),
       r: randomRange(3, 8),
       d: randomRange(1, 2.8),
       tilt: randomRange(-12, 12),
       color: `hsl(${Math.floor(randomRange(0, 360))}, 90%, 65%)`,
-      vx: randomRange(-1.8, 1.8),
-      vy: randomRange(1.8, 3.6),
+      vx: randomRange(-3.2, 3.2),
+      vy: randomRange(1.6, 4.6),
       rotation: randomRange(0, Math.PI * 2)
     });
   }
@@ -172,9 +175,21 @@ function setWish() {
   createConfettiBurst(120);
 }
 
-celebrateBtn.addEventListener("click", () => {
-  createConfettiBurst(220);
-});
+function launchCelebration() {
+  const centerX = canvas.width / 2;
+  createConfettiBurst(220, centerX, canvas.height * 0.16);
+  setTimeout(() => createConfettiBurst(160, canvas.width * 0.2, canvas.height * 0.22), 180);
+  setTimeout(() => createConfettiBurst(160, canvas.width * 0.8, canvas.height * 0.22), 340);
+
+  celebrateBtn.textContent = "Celebrating!";
+  celebrateBtn.disabled = true;
+  setTimeout(() => {
+    celebrateBtn.textContent = "Launch Celebration";
+    celebrateBtn.disabled = false;
+  }, 900);
+}
+
+celebrateBtn.addEventListener("click", launchCelebration);
 
 musicBtn.addEventListener("click", toggleMusic);
 if (wishBtn) {
