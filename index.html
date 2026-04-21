@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday!</title>
+  <meta name="description" content="A joyful birthday celebration website with animations, music, and wishes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <div class="background-glow" aria-hidden="true"></div>
+  <div class="balloons" aria-hidden="true">
+    <span class="balloon b1"></span>
+    <span class="balloon b2"></span>
+    <span class="balloon b3"></span>
+    <span class="balloon b4"></span>
+    <span class="balloon b5"></span>
+    <span class="balloon b6"></span>
+  </div>
+
+  <main class="container">
+    <section class="hero card">
+      <p class="eyebrow">Today is your day</p>
+      <h1>Happy Birthday, <span id="birthday-name">My Superstar</span>!</h1>
+      <p class="subtitle">
+        Wishing you laughter that never ends, dreams that always grow,
+        and a year full of magical moments.
+      </p>
+
+      <div class="controls">
+        <button id="celebrate-btn" class="btn primary">Launch Celebration</button>
+        <button id="music-btn" class="btn secondary" aria-pressed="false">Play Music</button>
+      </div>
+
+      <div class="countdown-wrap">
+        <p class="countdown-label">Countdown to next birthday</p>
+        <div id="countdown" class="countdown" role="timer" aria-live="polite">
+          <div><span id="days">00</span><small>Days</small></div>
+          <div><span id="hours">00</span><small>Hours</small></div>
+          <div><span id="minutes">00</span><small>Minutes</small></div>
+          <div><span id="seconds">00</span><small>Seconds</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wishes card">
+      <h2>Birthday Wishes</h2>
+      <div class="wish-grid">
+        <article>
+          <h3>Joy</h3>
+          <p>May your smile be brighter than candles and your heart lighter than confetti.</p>
+        </article>
+        <article>
+          <h3>Success</h3>
+          <p>May every step you take bring new opportunities and wonderful achievements.</p>
+        </article>
+        <article>
+          <h3>Love</h3>
+          <p>May you be surrounded by people who celebrate your presence every single day.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="footer-note">
+      <p>Made with love and sparkles.</p>
+    </section>
+  </main>
+
+  <audio id="birthday-audio" preload="none" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6f2744f4ca.mp3?filename=happy-birthday-to-you-piano-version-13976.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
