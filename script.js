@@ -1,3 +1,5 @@
+const muteBtn = document.getElementById("mute-btn");
+const pauseBtn = document.getElementById("pause-btn");
 const audio = document.getElementById("birthday-audio");
 const funlineEl = document.getElementById("funline");
 const celebrationYearEl = document.getElementById("celebration-year");
