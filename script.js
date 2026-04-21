@@ -1,7 +1,10 @@
 const celebrateBtn = document.getElementById("celebrate-btn");
 const musicBtn = document.getElementById("music-btn");
 const audio = document.getElementById("birthday-audio");
-const ageLineEl = document.getElementById("age-line");
+const funlineEl = document.getElementById("funline");
+const wishBtn = document.getElementById("wish-btn");
+const celebrationYearEl = document.getElementById("celebration-year");
+const turningAgeEl = document.getElementById("turning-age");
 
 const daysEl = document.getElementById("days");
 const hoursEl = document.getElementById("hours");
@@ -96,12 +99,32 @@ function getCurrentAge() {
   return age;
 }
 
-function updateAgeLine() {
-  if (!ageLineEl) {
+function getTurningAge() {
+  return targetDate.getFullYear() - BIRTH_YEAR;
+}
+
+function updateCelebrationBadges() {
+  if (celebrationYearEl) {
+    celebrationYearEl.textContent = String(targetDate.getFullYear());
+  }
+  if (turningAgeEl) {
+    turningAgeEl.textContent = String(getTurningAge());
+  }
+}
+
+function updateFunline() {
+  if (!funlineEl) {
     return;
   }
-  const currentAge = getCurrentAge();
-  ageLineEl.textContent = `- Turning ${currentAge + 1} on the next birthday!`;
+
+  const turningAge = getTurningAge();
+  const lines = [
+    `Breaking news: Roli is turning ${turningAge} and the cake is nervous.`,
+    `Roli turns ${turningAge} this year. Everyone act cool. (Impossible.)`,
+    `Level up unlocked: Roli ${turningAge}. New powers: extra sparkle.`,
+    `Today’s agenda: Celebrate Roli. Repeat. Add more confetti.`
+  ];
+  funlineEl.textContent = lines[Math.floor(Math.random() * lines.length)];
 }
 
 function pad(num) {
@@ -147,16 +170,34 @@ async function toggleMusic() {
   }
 }
 
+function setWish() {
+  if (!funlineEl) return;
+  const wishes = [
+    "May your snacks be endless and your homework be tiny.",
+    "May your selfies be flawless and your vibes be unstoppable.",
+    "May your birthday be louder than your alarm clock.",
+    "May you always find money in old pockets. (Manifesting.)",
+    "May your Wi‑Fi be strong and your problems be weak.",
+    "May your day be 99% fun and 1% cake crumbs."
+  ];
+  funlineEl.textContent = wishes[Math.floor(Math.random() * wishes.length)];
+  createConfettiBurst(120);
+}
+
 celebrateBtn.addEventListener("click", () => {
   createConfettiBurst(220);
 });
 
 musicBtn.addEventListener("click", toggleMusic);
+if (wishBtn) {
+  wishBtn.addEventListener("click", setWish);
+}
 window.addEventListener("resize", setCanvasSize);
 
 setCanvasSize();
 createConfettiBurst(120);
 updateConfetti();
-updateAgeLine();
+updateCelebrationBadges();
+updateFunline();
 updateCountdown();
 setInterval(updateCountdown, 1000);

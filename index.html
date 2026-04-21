@@ -31,13 +31,19 @@
         To my favorite sister Roli - wishing you laughter that never ends,
         dreams that always grow, and a year full of magical moments.
       </p>
-      <p class="subtitle">
-        Born on <strong>22 April 2010</strong> <span id="age-line"></span>
-      </p>
+
+      <div class="badges" aria-label="Celebration details">
+        <span class="chip">Celebrating <strong id="celebration-year">----</strong></span>
+        <span class="chip">Turning <strong id="turning-age">--</strong></span>
+        <span class="chip">Born <strong>22 Apr 2010</strong></span>
+      </div>
+
+      <p class="subtitle funline" id="funline" aria-live="polite"></p>
 
       <div class="controls">
         <button id="celebrate-btn" class="btn primary">Launch Celebration</button>
         <button id="music-btn" class="btn secondary" aria-pressed="false">Play Music</button>
+        <button id="wish-btn" class="btn ghost">Generate a Funny Wish</button>
       </div>
 
       <div class="countdown-wrap">
@@ -52,20 +58,47 @@
     </section>
 
     <section class="wishes card">
-      <h2>Birthday Wishes</h2>
+      <h2>Birthday Wishes (Roli Edition)</h2>
       <div class="wish-grid">
         <article>
           <h3>Joy</h3>
           <p>May your smile be brighter than candles and your heart lighter than confetti.</p>
         </article>
         <article>
-          <h3>Success</h3>
+          <h3>Glow-up</h3>
           <p>May every step you take bring new opportunities and wonderful achievements.</p>
         </article>
         <article>
           <h3>Love</h3>
           <p>May you be surrounded by people who celebrate your presence every single day.</p>
         </article>
+      </div>
+    </section>
+
+    <section class="extras card">
+      <h2>The Roli Awards</h2>
+      <div class="award-grid">
+        <div class="award">
+          <div class="award-icon" aria-hidden="true">🏆</div>
+          <div>
+            <h3>Best Sister</h3>
+            <p>Officially undefeated. No rematch needed.</p>
+          </div>
+        </div>
+        <div class="award">
+          <div class="award-icon" aria-hidden="true">✨</div>
+          <div>
+            <h3>Top Vibes</h3>
+            <p>Turns ordinary days into “okay wow” days.</p>
+          </div>
+        </div>
+        <div class="award">
+          <div class="award-icon" aria-hidden="true">🎂</div>
+          <div>
+            <h3>Cake Manager</h3>
+            <p>Responsible for 100% of today’s happiness.</p>
+          </div>
+        </div>
       </div>
     </section>
 

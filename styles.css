@@ -6,6 +6,8 @@
   --accent: #ffd166;
   --text: #f8f5ff;
   --muted: #d6caef;
+  --card: rgba(255, 255, 255, 0.075);
+  --card2: rgba(255, 255, 255, 0.035);
 }
 
 * {
@@ -53,7 +55,7 @@ body {
 }
 
 .card {
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+  background: linear-gradient(140deg, var(--card), var(--card2));
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(8px);
@@ -78,6 +80,15 @@ h1 {
   font-family: "Great Vibes", cursive;
   font-size: clamp(2.2rem, 8vw, 4.5rem);
   font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+#birthday-name {
+  background: linear-gradient(90deg, #ffd166, #ff4fa3, #7c4dff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 10px 25px rgba(255, 79, 163, 0.25));
 }
 
 .subtitle {
@@ -85,6 +96,33 @@ h1 {
   max-width: 700px;
   color: var(--muted);
   line-height: 1.7;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem 0 0.6rem;
+}
+
+.chip {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.chip strong {
+  color: var(--text);
+}
+
+.funline {
+  margin-top: 0.5rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .controls {
@@ -119,6 +157,17 @@ h1 {
   background: linear-gradient(120deg, var(--secondary), #9c8cff);
   color: #fff;
   box-shadow: 0 10px 25px rgba(124, 77, 255, 0.35);
+}
+
+.ghost {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+}
+
+.ghost:hover {
+  opacity: 0.95;
 }
 
 .countdown-wrap {
@@ -175,6 +224,12 @@ h1 {
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 14px;
   padding: 1rem;
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.wish-grid article:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.26);
 }
 
 .wish-grid h3 {
@@ -192,6 +247,60 @@ h1 {
   text-align: center;
   margin-top: 1rem;
   color: #d9ccf1;
+}
+
+.extras {
+  margin-top: 1.2rem;
+  padding: 1.4rem;
+}
+
+.extras h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.award-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.award {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 1rem;
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.award:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.26);
+}
+
+.award-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(120deg, rgba(255, 79, 163, 0.25), rgba(124, 77, 255, 0.25));
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  flex: 0 0 auto;
+  font-size: 1.1rem;
+}
+
+.award h3 {
+  margin: 0;
+  margin-bottom: 0.25rem;
+}
+
+.award p {
+  margin: 0;
+  color: var(--muted);
 }
 
 .balloons {
@@ -250,6 +359,10 @@ h1 {
   }
 
   .wish-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .award-grid {
     grid-template-columns: 1fr;
   }
 }
